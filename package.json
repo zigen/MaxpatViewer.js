@@ -1,0 +1,22 @@
+{
+  "name": "maxpat-viewer",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel example/index.html -p 3000",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rimraf ./dist",
+    "fix": "prettier --config ./.prettierrc.js --write \"./**/*.js\" \"./*.js\""
+  },
+  "author": "Kentaro 'zigen' Teramoto <hrlclb@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel-bundler": "^1.12.3",
+    "prettier": "^1.17.0",
+    "rimraf": "^2.6.3"
+  },
+  "dependencies": {
+    "svg.js": "^2.7.1"
+  }
+}
