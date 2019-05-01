@@ -15,6 +15,7 @@ class MaxObject {
     this.w = w;
     this.h = h;
     this.patcher = patcher;
+    this.eventEmitter = patcher.eventEmitter;
 
     this.inlets = Array.from(new Array(this.numInlets)).map((_, i) => new Port(this, "IN", i, this.numInlets, ""));
     this.outlets = (data.outlettype || []).map((t, i) => new Port(this, "OUT", i, this.numOutlets, t));
@@ -49,7 +50,18 @@ class MaxObject {
     this.inlets.map((inlet) => inlet.render(svg));
     this.outlets.map((outlet) => outlet.render(svg));
 
-    this.elem.on("mouseover", (e) => console.log(this));
+    this.elem.on("mouseover", (e) => this.eventEmitter.emit("mouseover", this.inspect()));
+  }
+
+  inspect() {
+    const { x, y, w, h, text, maxClass, id } = this;
+    return {
+      type: "MaxObject",
+      maxClass,
+      id,
+      text,
+      rect: { x, y, w, h },
+    };
   }
 }
 
