@@ -1,5 +1,6 @@
 import { MAX_OBJECT_PADDING } from "./constants";
 import Port from "./Port";
+import render from "./MaxObjectRenderers";
 
 class MaxObject {
   constructor(patcher, objData) {
@@ -38,19 +39,12 @@ class MaxObject {
   }
 
   render(svg) {
-    const { x, y, w, h } = this;
-    this.elem = svg.rect(w, h).attr({ stroke: "black", fill: "white", x, y });
-    if (this.text != null) {
-      svg
-        .text(this.text)
-        .font({ size: 12 })
-        .move(x + MAX_OBJECT_PADDING, y + MAX_OBJECT_PADDING * 1.5);
-    }
+    render(this, svg);
 
     this.inlets.map((inlet) => inlet.render(svg));
     this.outlets.map((outlet) => outlet.render(svg));
 
-    this.elem.on("mouseover", (e) => this.eventEmitter.emit("mouseover", this.inspect()));
+    this.elem.on("mouseover", () => this.eventEmitter.emit("mouseover", this.inspect()));
   }
 
   inspect() {
