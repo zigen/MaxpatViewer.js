@@ -5,19 +5,24 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel example/index.html -p 3000",
+    "build": "parcel build src/MaxpatViewer.js  --target node",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf ./dist",
-    "fix": "prettier --config ./.prettierrc.js --write \"./**/*.js\" \"./*.js\""
+    "fix": "prettier --config ./.prettierrc.js --write \"./**/*.js\" \"./*.js\"",
+    "export-example": "node bin/export.js -f ./example/example1.maxpat -o example1/example1-out.png"
   },
   "author": "Kentaro 'zigen' Teramoto <hrlclb@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "parcel-bundler": "^1.12.4",
     "prettier": "^1.19.1",
-    "rimraf": "^2.7.1"
+    "rimraf": "^2.7.1",
+    "svgdom": "0.0.21",
+    "yargs": "^15.0.2"
   },
   "dependencies": {
     "eventemitter3": "^3.1.2",
-    "svg.js": "^2.7.1"
+    "svg.js": "^2.7.1",
+    "svg2img": "^0.6.1"
   }
 }

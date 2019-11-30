@@ -1,10 +1,15 @@
-import SVG from "svg.js";
 import EventEmitter from "eventemitter3";
 import Patcher from "./Patcher";
 
 class MaxpatViewer extends EventEmitter {
-  constructor() {
+  constructor(SVGJS, document) {
     super();
+    if (document) {
+      this.document = document;
+    } else if (!document && global.document) {
+      this.document = global.document;
+    }
+    this.SVGJS = SVGJS;
     this.rootElem = null;
     this.svg = null;
     this.patcher = null;
@@ -16,7 +21,6 @@ class MaxpatViewer extends EventEmitter {
   }
 
   load(fileName, data) {
-    console.log(data);
     this.patcher = new Patcher(this, data.patcher);
   }
 
@@ -25,11 +29,11 @@ class MaxpatViewer extends EventEmitter {
       this.rootElem = elem;
     }
 
-    this.inspectorElem = document.createElement("PRE");
+    this.inspectorElem = this.document.createElement("PRE");
     this.inspectorElem.className = "inspector-container";
     this.rootElem.appendChild(this.inspectorElem);
     this.inspectorElem.textContent = "{}";
-    this.svg = SVG(this.rootElem).size(640 * 2, 480 * 3);
+    this.svg = this.SVGJS(this.rootElem).size(640 * 2, 480 * 3);
     this.patcher.render(this.svg);
   }
 }
